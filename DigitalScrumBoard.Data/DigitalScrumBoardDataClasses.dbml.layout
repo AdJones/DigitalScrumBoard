@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DigitalScrumBoardDataClasses">
+  <DataContextMoniker Name="/DigitalScrumBoardDataClassesDataContext" />
+  <nestedChildShapes>
+    <classShape Id="09f56a93-6b50-4483-84e5-2be0d840cc88" absoluteBounds="0.5, 0.5, 2, 2.5401025390625">
+      <DataClassMoniker Name="/DigitalScrumBoardDataClassesDataContext/Task" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9605ad6a-4116-447c-87c0-083446a42c62" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

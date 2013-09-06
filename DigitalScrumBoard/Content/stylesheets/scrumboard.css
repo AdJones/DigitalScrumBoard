@@ -1,0 +1,46 @@
+﻿#board {
+    width: 1890px;
+    height: 5080px;
+}
+
+#board td {
+    width: 460px;
+    height: 5080px;
+    border: 1px solid black;
+}
+
+.task {
+    background-size: cover;
+    height: 150px;
+    width: 150px;
+    overflow: hidden;
+    position: absolute;
+    outline: 0 solid transparent;
+}
+
+.DevelopmentTask {
+    background-image: url('/Content/images/post-it-yellow.png')!important;
+}
+
+.TestTask {
+    background-image: url('/Content/images/post-it-blue.png')!important;
+}
+
+.BlockTask {
+    background-image: url('/Content/images/post-it-pink.png')!important;
+}
+
+.taskText {
+    margin: 25px;
+}
+
+.timeRemaining {
+    width: 20px;
+    height: 20px;
+    border: 1px solid gray;
+    position: absolute;
+    overflow: hidden;
+    right: 0px;
+    bottom: 0px;
+    margin: 0px 20px 20px 0px;
+}

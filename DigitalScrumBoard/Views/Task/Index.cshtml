@@ -1,0 +1,10 @@
+﻿@model DigitalScrumBoard.Models.ViewModels.TaskPartialViewModel
+
+<div id="@Model.ID" class="task draggableTask @(Model.Type)Task" style="left:@(Model.Left)px;top:@(Model.Top)px;">
+    <p class="taskText">
+        @Model.Text
+    </p>
+    <p class="timeRemaining">
+        @Model.TimeRemaining
+    </p>
+</div>

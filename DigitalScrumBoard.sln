@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalScrumBoard", "DigitalScrumBoard\DigitalScrumBoard.csproj", "{451B23CB-80AF-4489-843C-FA3D3010D882}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalScrumBoard.Data", "DigitalScrumBoard.Data\DigitalScrumBoard.Data.csproj", "{BE708DF3-FA4A-498C-8F80-EC9CAA442694}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DigitalScrumBoard.SqlDB", "DigitalScrumBoard.SqlDB\DigitalScrumBoard.SqlDB.sqlproj", "{4F3D8E61-94C5-49CA-8BC8-7E049600F683}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{451B23CB-80AF-4489-843C-FA3D3010D882}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{451B23CB-80AF-4489-843C-FA3D3010D882}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{451B23CB-80AF-4489-843C-FA3D3010D882}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{451B23CB-80AF-4489-843C-FA3D3010D882}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE708DF3-FA4A-498C-8F80-EC9CAA442694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE708DF3-FA4A-498C-8F80-EC9CAA442694}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE708DF3-FA4A-498C-8F80-EC9CAA442694}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE708DF3-FA4A-498C-8F80-EC9CAA442694}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F3D8E61-94C5-49CA-8BC8-7E049600F683}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F3D8E61-94C5-49CA-8BC8-7E049600F683}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F3D8E61-94C5-49CA-8BC8-7E049600F683}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4F3D8E61-94C5-49CA-8BC8-7E049600F683}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F3D8E61-94C5-49CA-8BC8-7E049600F683}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F3D8E61-94C5-49CA-8BC8-7E049600F683}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

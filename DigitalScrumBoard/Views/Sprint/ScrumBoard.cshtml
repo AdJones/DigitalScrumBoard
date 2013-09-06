@@ -1,0 +1,29 @@
+﻿@model DigitalScrumBoard.Models.ViewModels.ScrumBoardViewModel
+@using DigitalScrumBoard.Data 
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Digital Scrum Board</title>
+    <link href="~/Content/stylesheets/scrumboard.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-2.0.3.js"></script>
+    <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
+    <script src="~/Scripts/digitalscrumboard.js"></script>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <div>
+        @Html.Partial("BoardTable")
+
+        @foreach (Task t in Model.Tasks)
+        {
+            @Html.Action("Index", "Task", new { task = t })
+        }
+    </div>
+</body>
+</html>
