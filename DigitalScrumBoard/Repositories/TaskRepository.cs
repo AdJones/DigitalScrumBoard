@@ -34,7 +34,7 @@ namespace DigitalScrumBoard.Repositories
             if (this.context.Tasks.Any(t => t.ID == taskId))
             {
                 Task task = context.Tasks.Single(t => t.ID == taskId);
-                task.Text = taskText.Trim();
+                task.Text = taskText.Trim().Replace("&nbsp;", " ");
                 if (updateTime)
                 {
                     task.TimeRemaining = timeRemaining;
