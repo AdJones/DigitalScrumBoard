@@ -26,7 +26,9 @@ namespace DigitalScrumBoard.Data.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ADAM-PC;Initial Catalog=aspnetdb;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=tcp:av7uk7m6sw.database.windows.net,1433;Database=DigitalScrumBoard;User I" +
+            "D=adjones@av7uk7m6sw;Password=d33P_5P4C39;Trusted_Connection=False;Encrypt=True;" +
+            "Connection Timeout=30;")]
         public string aspnetdbConnectionString {
             get {
                 return ((string)(this["aspnetdbConnectionString"]));

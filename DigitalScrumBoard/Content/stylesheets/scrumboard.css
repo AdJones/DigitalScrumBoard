@@ -1,12 +1,19 @@
-﻿#board {
-    width: 1890px;
-    height: 5080px;
+﻿body {
+    background-image: url('/Content/images/cardboard_flat.png');
 }
 
-#board td {
-    width: 460px;
+#container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.droppableCol {
+    width: 24%;
     height: 5080px;
     border: 1px solid black;
+    float:left;
+    margin: 0 2px 2px 0;
+    background-color: white;
 }
 
 .task {
@@ -16,18 +23,37 @@
     overflow: hidden;
     position: absolute;
     outline: 0 solid transparent;
+    -ms-touch-action: none;
 }
 
 .DevelopmentTask {
-    background-image: url('/Content/images/post-it-yellow.png')!important;
+    background-image: url('/Content/images/post-it-yellow-trans.png')!important;
+    order: 4;
+    -ms-flex-order: 4;
 }
 
 .TestTask {
-    background-image: url('/Content/images/post-it-blue.png')!important;
+    background-image: url('/Content/images/post-it-blue-trans.png')!important;
+    order: 5;
+    -ms-flex-order: 5;
 }
 
 .BlockTask {
-    background-image: url('/Content/images/post-it-pink.png')!important;
+    background-image: url('/Content/images/post-it-pink-trans.png')!important;
+    order: 3;
+    -ms-flex-order: 3;
+}
+
+.UserStoryTask {
+    background-image: url('/Content/images/post-it-orange-trans.png')!important;
+    order: 1;
+    -ms-flex-order: 1;
+}
+
+.SatisfactionConditionsTask {
+    background-image: url('/Content/images/post-it-green-trans.png')!important;
+    order: 2;
+    -ms-flex-order: 2;
 }
 
 .taskText {
@@ -43,4 +69,36 @@
     right: 0px;
     bottom: 0px;
     margin: 0px 20px 20px 0px;
+}
+
+.colHeader {
+    margin: 0;
+    padding: 0;
+}
+
+@media screen and (max-width: 1000px) {
+    .droppableCol {
+        display: inline-block;
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 150px;
+    }
+    .task {
+        left: 0 !important;
+        top: 0 !important;
+        position: relative;
+        float:left;
+    }
+    .taskStoryContainer {
+        float: left;
+        position: relative;
+        width: 100% !important;
+        display: flex;
+        display: -ms-flexbox;
+        flex-direction: row;
+        -ms-flex-direction: row;
+    }
+    /*.UserStoryTask {
+        clear: left;
+    }*/
 }

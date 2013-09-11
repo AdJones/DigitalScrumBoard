@@ -8,8 +8,10 @@ namespace DigitalScrumBoard.Business
     public enum TaskType
     {
         None = 0,
-        Development = 1,
-        Test = 2,
-        Block = 3
+        UserStory = 1,
+        SatisfactionConditions = 2,
+        Development = 3,
+        Test = 4,
+        Block = 5
     }
 }

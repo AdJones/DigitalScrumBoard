@@ -14,6 +14,7 @@ namespace DigitalScrumBoard.Models.ViewModels
         private int top;
         private TaskType type;
         private string text;
+        private int storyId;
         private int timeRemaining;
 
         public int TimeRemaining
@@ -26,6 +27,12 @@ namespace DigitalScrumBoard.Models.ViewModels
         {
             get { return text; }
             set { text = value; }
+        }
+
+        public int StoryId
+        {
+            get { return storyId; }
+            set { storyId = value; }
         }
 
         public TaskType Type
@@ -60,6 +67,7 @@ namespace DigitalScrumBoard.Models.ViewModels
             this.Type = (TaskType)t.Type;
             this.text = t.Text;
             this.timeRemaining = t.TimeRemaining;
+            this.storyId = t.StoryID;
         }
     }
 }

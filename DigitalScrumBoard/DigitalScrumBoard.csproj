@@ -124,15 +124,26 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\images\cardboard_flat.png" />
+    <Content Include="Content\images\post-it-blue-trans.png" />
     <Content Include="Content\images\post-it-blue.png" />
+    <Content Include="Content\images\post-it-green-trans.png" />
+    <Content Include="Content\images\post-it-green.png" />
+    <Content Include="Content\images\post-it-orange-trans.png" />
+    <Content Include="Content\images\post-it-orange.png" />
+    <Content Include="Content\images\post-it-pink-trans.png" />
     <Content Include="Content\images\post-it-pink.png" />
+    <Content Include="Content\images\post-it-yellow-trans.png" />
     <Content Include="Content\images\post-it-yellow.png" />
     <Content Include="Content\stylesheets\scrumboard.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\digitalscrumboard.js" />
+    <None Include="Properties\PublishProfiles\adjonestest - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\adjonestest - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery-touch.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.min.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.js" />
@@ -145,7 +156,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Task\Index.cshtml" />
-    <Content Include="Views\Sprint\BoardTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

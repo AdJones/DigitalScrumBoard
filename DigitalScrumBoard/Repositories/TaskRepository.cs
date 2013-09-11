@@ -12,9 +12,17 @@ namespace DigitalScrumBoard.Repositories
         public List<Task> GetScrumTasks(int sprintId)
         {
             if (sprintId != 0)
-                return context.Tasks.Where(t => t.SprintID == sprintId).ToList<Task>();
+                return context.Tasks.Where(t => t.Story.SprintId == sprintId).ToList<Task>();
             else
                 return context.Tasks.ToList<Task>();
+        }
+
+        public List<Story> GetScrumStories(int sprintId)
+        {
+            if (sprintId != 0)
+                return context.Stories.Where(s => s.SprintId == sprintId).ToList<Story>();
+            else
+                return context.Stories.ToList<Story>();
         }
 
         public void UpdateTaskCoords(int taskId, int left, int top, string droppedIntoColId)
@@ -25,7 +33,7 @@ namespace DigitalScrumBoard.Repositories
                 taskToUpdate.Left = left;
                 taskToUpdate.Top = top;
                 taskToUpdate.CurrentCol = droppedIntoColId;
-                context.SubmitChanges(System.Data.Linq.ConflictMode.FailOnFirstConflict);
+                context.SubmitChanges();
             }
         }
 

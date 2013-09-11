@@ -1,8 +1,8 @@
 ﻿var taskInTransition = false;
 var animationSpeed = 400;
 var timeRemainingBoxSizeChange = "10px";
-var droppable;
 
+// Start-up function
 $(function () {
     makeDraggableAndDroppable();
     clickResize();
@@ -12,10 +12,40 @@ $(function () {
     });
 });
 
+// Window resizing features
+$(window).resize(function () {
+    if (this.resizeTO) clearTimeout(this.resizeTO);
+    this.resizeTO = setTimeout(function () {
+        $(this).trigger('resizeEnd');
+    }, 500);
+});
+
+$(window).bind('resizeEnd', function () {
+    var width = $(window).width();
+    if (width > 1000) {
+        clickResize();
+    }
+    else {
+        $(".draggableTask").off('click');
+        $(".draggableTask").off('blur');
+    }
+});
+
+// Function to make tasks draggable and columns droppable
 function makeDraggableAndDroppable() {
+    var l_nScrollTop = $(window).scrollTop();
+    var l_nScrollLeft = $(window).scrollLeft();
+    var droppable;
+
     $(".draggableTask").draggable({
         disabled: false,
+        start: function () {
+            l_nScrollTop = $(window).scrollTop();
+            l_nScrollLeft = $(window).scrollLeft();
+        },
         drag: function (event, ui) {
+            $(window).scrollTop(l_nScrollTop);
+            $(window).scrollLeft(l_nScrollLeft);
             $(this).css("opacity", "0.6"); // Semi-transparent while being dragged
             $("#x").val(ui.position.left);
             $("#y").val(ui.position.top);
@@ -26,17 +56,14 @@ function makeDraggableAndDroppable() {
 
             $(this).css("opacity", "1.0"); // Revert to fully opaque when dragging stopped
 
-            $.ajax({ // AJAX call to persist co-ordinate updates after dropping task
-                cache: false,
-                url: "/Task/UpdateTaskCoords_Ajax",
-                data: { id: event.target.id, left: ui.position.left, top: ui.position.top, droppedIntoCol: droppable.attr("id") }
-            });
+            moveTask($(this), $(droppable));
+
             droppable = undefined;
         },
         cursor: "move"
     });
 
-    $(".droppableRow").droppable({
+    $(".droppableCol").droppable({
         over: function (event, ui) {
             ui.draggable.data("current-droppable", $(this));
         },
@@ -53,7 +80,38 @@ function makeDraggableAndDroppable() {
     });
 }
 
+// Function to move a draggable task into a droppable column
+function moveTask(draggable, droppable) {
+    // Move the task to a different parent TD
+    var droppableId = droppable.attr("id");
+    var storyIdFromDraggable = draggable.data("storyid");
+
+    // Find the child DIV to which the task should be appended
+    var divToAppend;
+    droppable.children('div').each(function () {
+        if ($(this).data("storyid") == storyIdFromDraggable) {
+            divToAppend = $(this);
+        }
+    });
+
+    draggable.appendTo(divToAppend);
+
+    // Move the task in the DB
+    var myLeftAsPercent = draggable.position().left / draggable.parent().parent().parent().width() * 100;
+    var myTop = draggable.position().top;
+
+    draggable.css('left', myLeftAsPercent + "%");
+    $.ajax({ // AJAX call to persist co-ordinate updates after dropping task
+        cache: false,
+        url: "/Task/UpdateTaskCoords_Ajax",
+        data: { id: draggable.attr("id"), left: myLeftAsPercent, top: myTop, droppedIntoCol: droppable.attr("id") }
+    });
+}
+
+// Function to enable the on-click and on-blur resizing of tasks
 function clickResize() {
+    $(".draggableTask").off('click');
+    $(".draggableTask").off('blur');
     $(".draggableTask").click(function (event, ui) {
         event.stopPropagation();
         if (!taskInTransition) {
@@ -78,7 +136,8 @@ function clickResize() {
             }
         }
     }).blur(function () {
-        if ($(this).children(":focus").length == 0) {
+        var aWidth = $(this).css("width");
+        if ($(this).children(":focus").length == 0 && $(this).width != "150px" && $(this).height != "150px") {
             taskInTransition = true;
             $(this).animate({
                 width: "-=150", height: "-=150", fontSize: "-=10pt", padding: "-=25px", zIndex: "-=1"

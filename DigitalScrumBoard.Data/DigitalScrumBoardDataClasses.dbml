@@ -1,5 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="aspnetdb" Class="DigitalScrumBoardDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=ADAM-PC;Initial Catalog=aspnetdb;Integrated Security=True" SettingsObjectName="DigitalScrumBoard.Data.Properties.Settings" SettingsPropertyName="aspnetdbConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DigitalScrumBoard.SqlDB" Class="DigitalScrumBoardDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=ADAM-PC;Initial Catalog=DigitalScrumBoard.SqlDB;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="DigitalScrumBoard.Data.Properties.Settings" SettingsPropertyName="aspnetdbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Sprint" Member="Sprints">
+    <Type Name="Sprint">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Goals" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Sprint_Story" Member="Stories" ThisKey="ID" OtherKey="SprintId" Type="Story" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Story" Member="Stories">
+    <Type Name="Story">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Text" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="SprintId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Story_Task" Member="Tasks" ThisKey="ID" OtherKey="StoryID" Type="Task" />
+      <Association Name="Sprint_Story" Member="Sprint" ThisKey="SprintId" OtherKey="ID" Type="Sprint" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Task" Member="Tasks">
     <Type Name="Task">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -8,9 +24,10 @@
       <Column Name="[Top]" Member="Top" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="OwnerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="SprintID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StoryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CurrentCol" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="TimeRemaining" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Story_Task" Member="Story" ThisKey="StoryID" OtherKey="ID" Type="Story" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

@@ -8,7 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{4f3d8e61-94c5-49ca-8bc8-7e049600f683}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureDatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -64,5 +64,10 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Task.sql" />
+    <Build Include="dbo\Tables\Story.sql" />
+    <Build Include="dbo\Tables\Sprint.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="DigitalScrumBoard.SqlDB.refactorlog" />
   </ItemGroup>
 </Project>

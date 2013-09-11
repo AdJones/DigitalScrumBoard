@@ -8,17 +8,17 @@ namespace DigitalScrumBoard.Models.ViewModels
 {
     public class ScrumBoardViewModel
     {
-        private List<Task> tasks;
+        private List<Story> stories;
 
-        public List<Task> Tasks
+        public List<Story> Stories
         {
-            get { return tasks; }
-            set { tasks = value; }
+            get { return stories; }
+            set { stories = value; }
         }
 
-        public ScrumBoardViewModel(List<Task> tasks)
+        public ScrumBoardViewModel(List<Story> stories)
         {
-            this.tasks = tasks;
+            this.stories = stories;
         }
     }
 }

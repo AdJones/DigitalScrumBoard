@@ -23,9 +23,9 @@ namespace DigitalScrumBoard.Controllers
             {
                 int.TryParse(RouteData.Values["id"].ToString(), out sprintId);
             }
-            List<Task> tasks = repository.GetScrumTasks(sprintId);
+            List<Story> stories = repository.GetScrumStories(sprintId);
 
-            ScrumBoardViewModel model = new ScrumBoardViewModel(tasks);
+            ScrumBoardViewModel model = new ScrumBoardViewModel(stories);
             return View(model);
         }
     }

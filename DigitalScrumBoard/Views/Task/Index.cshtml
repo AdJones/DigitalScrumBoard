@@ -1,10 +1,14 @@
 ﻿@model DigitalScrumBoard.Models.ViewModels.TaskPartialViewModel
 
-<div id="@Model.ID" class="task draggableTask @(Model.Type)Task" style="left:@(Model.Left)px;top:@(Model.Top)px;">
+<div id="@Model.ID" class="task draggableTask @(Model.Type)Task" style="left:@(Model.Left)%;top:@(Model.Top)px;" data-storyid="@Model.StoryId">
     <p class="taskText">
         @Model.Text
     </p>
     <p class="timeRemaining">
-        @Model.TimeRemaining
+    @if (Model.Type != DigitalScrumBoard.Business.TaskType.UserStory
+        && Model.Type != DigitalScrumBoard.Business.TaskType.SatisfactionConditions){
+        
+            @Model.TimeRemaining
+    }
     </p>
 </div>

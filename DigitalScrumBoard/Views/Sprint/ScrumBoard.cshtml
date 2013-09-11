@@ -1,5 +1,5 @@
 ﻿@model DigitalScrumBoard.Models.ViewModels.ScrumBoardViewModel
-@using DigitalScrumBoard.Data 
+@using DigitalScrumBoard.Data
 
 @{
     Layout = null;
@@ -14,16 +14,59 @@
     <script src="~/Scripts/jquery-2.0.3.js"></script>
     <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
     <script src="~/Scripts/digitalscrumboard.js"></script>
+    <script src="~/Scripts/jquery-touch.js"></script>
     <meta name="viewport" content="width=device-width" />
 </head>
 <body>
-    <div>
-        @Html.Partial("BoardTable")
-
-        @foreach (Task t in Model.Tasks)
-        {
-            @Html.Action("Index", "Task", new { task = t })
-        }
-    </div>
+   <div id="container">
+       <div id="NotDoneCol" class="droppableCol">
+           <p class="colHeader">Not Done</p>
+           @foreach (Story s in Model.Stories)
+           {
+               <div class="taskStoryContainer" data-storyid="@s.ID">
+                   @foreach (Task t in s.Tasks.Where(t => t.CurrentCol == "NotDoneCol"))
+                   {
+                       @Html.Action("Index", "Task", new { task = t })
+                   }
+               </div>   
+           }
+       </div>
+       <div id="InProgressCol" class="droppableCol">
+           <p class="colHeader">In Progress</p>
+           @foreach (Story s in Model.Stories)
+           {
+               <div class="taskStoryContainer" data-storyid="@s.ID">
+                   @foreach (Task t in s.Tasks.Where(t => t.CurrentCol == "InProgressCol"))
+                   {
+                       @Html.Action("Index", "Task", new { task = t })
+                   }
+               </div>   
+           }
+       </div>
+       <div id="InTestCol" class="droppableCol">
+           <p class="colHeader">In Test/Awaiting Sign-Off</p>
+           @foreach (Story s in Model.Stories)
+           {
+               <div class="taskStoryContainer" data-storyid="@s.ID">
+                   @foreach (Task t in s.Tasks.Where(t => t.CurrentCol == "InTestCol"))
+                   {
+                       @Html.Action("Index", "Task", new { task = t })
+                   }
+               </div>   
+           }
+       </div>
+       <div id="DoneCol" class="droppableCol">
+           <p class="colHeader">Done :-)</p>
+           @foreach (Story s in Model.Stories)
+           {
+               <div class="taskStoryContainer" data-storyid="@s.ID">
+                   @foreach (Task t in s.Tasks.Where(t => t.CurrentCol == "DoneCol"))
+                   {
+                       @Html.Action("Index", "Task", new { task = t })
+                   }
+               </div>   
+           }
+       </div>
+   </div>
 </body>
 </html>

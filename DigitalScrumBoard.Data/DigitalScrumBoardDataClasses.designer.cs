@@ -22,7 +22,7 @@ namespace DigitalScrumBoard.Data
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="aspnetdb")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="DigitalScrumBoard.SqlDB")]
 	public partial class DigitalScrumBoardDataClassesDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -30,6 +30,12 @@ namespace DigitalScrumBoard.Data
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertSprint(Sprint instance);
+    partial void UpdateSprint(Sprint instance);
+    partial void DeleteSprint(Sprint instance);
+    partial void InsertStory(Story instance);
+    partial void UpdateStory(Story instance);
+    partial void DeleteStory(Story instance);
     partial void InsertTask(Task instance);
     partial void UpdateTask(Task instance);
     partial void DeleteTask(Task instance);
@@ -65,12 +71,321 @@ namespace DigitalScrumBoard.Data
 			OnCreated();
 		}
 		
+		public System.Data.Linq.Table<Sprint> Sprints
+		{
+			get
+			{
+				return this.GetTable<Sprint>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Story> Stories
+		{
+			get
+			{
+				return this.GetTable<Story>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Task> Tasks
 		{
 			get
 			{
 				return this.GetTable<Task>();
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Sprint")]
+	public partial class Sprint : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Goals;
+		
+		private EntitySet<Story> _Stories;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnGoalsChanging(string value);
+    partial void OnGoalsChanged();
+    #endregion
+		
+		public Sprint()
+		{
+			this._Stories = new EntitySet<Story>(new Action<Story>(this.attach_Stories), new Action<Story>(this.detach_Stories));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Goals", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		public string Goals
+		{
+			get
+			{
+				return this._Goals;
+			}
+			set
+			{
+				if ((this._Goals != value))
+				{
+					this.OnGoalsChanging(value);
+					this.SendPropertyChanging();
+					this._Goals = value;
+					this.SendPropertyChanged("Goals");
+					this.OnGoalsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sprint_Story", Storage="_Stories", ThisKey="ID", OtherKey="SprintId")]
+		public EntitySet<Story> Stories
+		{
+			get
+			{
+				return this._Stories;
+			}
+			set
+			{
+				this._Stories.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Stories(Story entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sprint = this;
+		}
+		
+		private void detach_Stories(Story entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sprint = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Story")]
+	public partial class Story : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Text;
+		
+		private int _SprintId;
+		
+		private EntitySet<Task> _Tasks;
+		
+		private EntityRef<Sprint> _Sprint;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnTextChanging(string value);
+    partial void OnTextChanged();
+    partial void OnSprintIdChanging(int value);
+    partial void OnSprintIdChanged();
+    #endregion
+		
+		public Story()
+		{
+			this._Tasks = new EntitySet<Task>(new Action<Task>(this.attach_Tasks), new Action<Task>(this.detach_Tasks));
+			this._Sprint = default(EntityRef<Sprint>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Text", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		public string Text
+		{
+			get
+			{
+				return this._Text;
+			}
+			set
+			{
+				if ((this._Text != value))
+				{
+					this.OnTextChanging(value);
+					this.SendPropertyChanging();
+					this._Text = value;
+					this.SendPropertyChanged("Text");
+					this.OnTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SprintId", DbType="Int NOT NULL")]
+		public int SprintId
+		{
+			get
+			{
+				return this._SprintId;
+			}
+			set
+			{
+				if ((this._SprintId != value))
+				{
+					if (this._Sprint.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSprintIdChanging(value);
+					this.SendPropertyChanging();
+					this._SprintId = value;
+					this.SendPropertyChanged("SprintId");
+					this.OnSprintIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Story_Task", Storage="_Tasks", ThisKey="ID", OtherKey="StoryID")]
+		public EntitySet<Task> Tasks
+		{
+			get
+			{
+				return this._Tasks;
+			}
+			set
+			{
+				this._Tasks.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sprint_Story", Storage="_Sprint", ThisKey="SprintId", OtherKey="ID", IsForeignKey=true)]
+		public Sprint Sprint
+		{
+			get
+			{
+				return this._Sprint.Entity;
+			}
+			set
+			{
+				Sprint previousValue = this._Sprint.Entity;
+				if (((previousValue != value) 
+							|| (this._Sprint.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Sprint.Entity = null;
+						previousValue.Stories.Remove(this);
+					}
+					this._Sprint.Entity = value;
+					if ((value != null))
+					{
+						value.Stories.Add(this);
+						this._SprintId = value.ID;
+					}
+					else
+					{
+						this._SprintId = default(int);
+					}
+					this.SendPropertyChanged("Sprint");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Tasks(Task entity)
+		{
+			this.SendPropertyChanging();
+			entity.Story = this;
+		}
+		
+		private void detach_Tasks(Task entity)
+		{
+			this.SendPropertyChanging();
+			entity.Story = null;
 		}
 	}
 	
@@ -92,11 +407,13 @@ namespace DigitalScrumBoard.Data
 		
 		private int _OwnerID;
 		
-		private int _SprintID;
+		private int _StoryID;
 		
 		private string _CurrentCol;
 		
 		private int _TimeRemaining;
+		
+		private EntityRef<Story> _Story;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -114,8 +431,8 @@ namespace DigitalScrumBoard.Data
     partial void OnTypeChanged();
     partial void OnOwnerIDChanging(int value);
     partial void OnOwnerIDChanged();
-    partial void OnSprintIDChanging(int value);
-    partial void OnSprintIDChanged();
+    partial void OnStoryIDChanging(int value);
+    partial void OnStoryIDChanged();
     partial void OnCurrentColChanging(string value);
     partial void OnCurrentColChanged();
     partial void OnTimeRemainingChanging(int value);
@@ -124,6 +441,7 @@ namespace DigitalScrumBoard.Data
 		
 		public Task()
 		{
+			this._Story = default(EntityRef<Story>);
 			OnCreated();
 		}
 		
@@ -247,22 +565,26 @@ namespace DigitalScrumBoard.Data
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SprintID", DbType="Int NOT NULL")]
-		public int SprintID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoryID", DbType="Int NOT NULL")]
+		public int StoryID
 		{
 			get
 			{
-				return this._SprintID;
+				return this._StoryID;
 			}
 			set
 			{
-				if ((this._SprintID != value))
+				if ((this._StoryID != value))
 				{
-					this.OnSprintIDChanging(value);
+					if (this._Story.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnStoryIDChanging(value);
 					this.SendPropertyChanging();
-					this._SprintID = value;
-					this.SendPropertyChanged("SprintID");
-					this.OnSprintIDChanged();
+					this._StoryID = value;
+					this.SendPropertyChanged("StoryID");
+					this.OnStoryIDChanged();
 				}
 			}
 		}
@@ -303,6 +625,40 @@ namespace DigitalScrumBoard.Data
 					this._TimeRemaining = value;
 					this.SendPropertyChanged("TimeRemaining");
 					this.OnTimeRemainingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Story_Task", Storage="_Story", ThisKey="StoryID", OtherKey="ID", IsForeignKey=true)]
+		public Story Story
+		{
+			get
+			{
+				return this._Story.Entity;
+			}
+			set
+			{
+				Story previousValue = this._Story.Entity;
+				if (((previousValue != value) 
+							|| (this._Story.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Story.Entity = null;
+						previousValue.Tasks.Remove(this);
+					}
+					this._Story.Entity = value;
+					if ((value != null))
+					{
+						value.Tasks.Add(this);
+						this._StoryID = value.ID;
+					}
+					else
+					{
+						this._StoryID = default(int);
+					}
+					this.SendPropertyChanged("Story");
 				}
 			}
 		}
