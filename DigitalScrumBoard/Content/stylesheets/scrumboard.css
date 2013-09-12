@@ -12,7 +12,7 @@
     height: 5080px;
     border: 1px solid black;
     float:left;
-    margin: 0 2px 2px 0;
+    margin: 0.39%;
     background-color: white;
 }
 
@@ -74,6 +74,9 @@
 .colHeader {
     margin: 0;
     padding: 0;
+    color: #808080;
+    font-size: 18px;
+    text-align: center;
 }
 
 @media screen and (max-width: 1000px) {
@@ -82,6 +85,8 @@
         width: 100% !important;
         height: 100% !important;
         min-height: 150px;
+        overflow: auto;
+        position: relative;
     }
     .task {
         left: 0 !important;
@@ -89,7 +94,7 @@
         position: relative;
         float:left;
     }
-    .taskStoryContainer {
+    /*.taskStoryContainer {
         float: left;
         position: relative;
         width: 100% !important;
@@ -97,8 +102,18 @@
         display: -ms-flexbox;
         flex-direction: row;
         -ms-flex-direction: row;
-    }
-    /*.UserStoryTask {
-        clear: left;
     }*/
+    .taskStoryContainer {
+        clear: left;
+        display: flex;
+        display: -ms-flexbox;
+        flex-direction: row;
+        -ms-flex-direction: row;
+        float: left;
+        position: relative;
+    }
+
+    .colHeader {
+        float:left;
+    }
 }

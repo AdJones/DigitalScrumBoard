@@ -1,15 +1,11 @@
 ﻿var taskInTransition = false;
 var animationSpeed = 400;
 var timeRemainingBoxSizeChange = "10px";
+var isFirefox = !(window.mozInnerScreenX == null);
 
 // Start-up function
 $(function () {
-    makeDraggableAndDroppable();
-    clickResize();
-
-    $(".draggableTask p:last-child").mousedown(function (event) {
-        $(this).focus();
-    });
+    checkMobileMode();
 });
 
 // Window resizing features
@@ -21,15 +17,37 @@ $(window).resize(function () {
 });
 
 $(window).bind('resizeEnd', function () {
+    checkMobileMode();
+});
+
+// Function to make necessary modifications to the page when switching between
+// full and mobile modes
+function checkMobileMode() {
     var width = $(window).width();
     if (width > 1000) {
+        makeDraggableAndDroppable();
         clickResize();
+        $(".draggableTask p:last-child").mousedown(function (event) {
+            $(this).focus();
+        });
     }
     else {
-        $(".draggableTask").off('click');
-        $(".draggableTask").off('blur');
+        try
+        {
+            $(".draggableTask").off();
+
+            $(".draggableTask").draggable("destroy");
+            $(".droppableCol").droppable("destroy");
+        }
+        catch (ex)
+        {
+            // Failed to turn off some draggable/droppable functionality... 
+            // not the end of the world. May occur on first loading the page
+            // whilst in mobile mode.
+        }
+        //makeBalloon();
     }
-});
+}
 
 // Function to make tasks draggable and columns droppable
 function makeDraggableAndDroppable() {
@@ -42,6 +60,9 @@ function makeDraggableAndDroppable() {
         start: function () {
             l_nScrollTop = $(window).scrollTop();
             l_nScrollLeft = $(window).scrollLeft();
+            if (isFirefox) {
+                $(this).addClass('noclick');
+            }
         },
         drag: function (event, ui) {
             $(window).scrollTop(l_nScrollTop);
@@ -114,30 +135,36 @@ function clickResize() {
     $(".draggableTask").off('blur');
     $(".draggableTask").click(function (event, ui) {
         event.stopPropagation();
-        if (!taskInTransition) {
-            var currHeight = $(this).css('height');
-            var currWidth = $(this).css('width');
-            if (currHeight == "150px" && currWidth == "150px") {
-                taskInTransition = true;
-                $(this).animate({
-                    width: "+=150", height: "+=150", fontSize: "+=10pt", padding: "+=25px", zIndex: "+=1"
-                }, animationSpeed, function () {
-                    taskInTransition = false;
-                    $(this).draggable("option", "disabled", true);
-                    $(this).attr('contenteditable', 'true');
-                    $(this).css("opacity", "1");
-                    $(this).focus();
-                });
-                $(this).children(':last').animate({
-                    margin: "0 50px 50px 0",
-                    height: "+=" + timeRemainingBoxSizeChange,
-                    width: "+=" + timeRemainingBoxSizeChange
-                });
+        if ($(this).hasClass('noclick')) {
+            $(this).removeClass('noclick');
+        }
+        else {
+            if (!taskInTransition) {
+                var currHeight = $(this).css('height');
+                var currWidth = $(this).css('width');
+                if (currHeight == "150px" && currWidth == "150px") {
+                    taskInTransition = true;
+                    $(this).animate({
+                        width: "+=150", height: "+=150", fontSize: "+=10pt", padding: "+=25px", zIndex: "+=1"
+                    }, animationSpeed, function () {
+                        taskInTransition = false;
+                        $(this).draggable("option", "disabled", true);
+                        $(this).attr('contenteditable', 'true');
+                        $(this).css("opacity", "1");
+                        $(this).focus();
+                    });
+                    $(this).children(':last').animate({
+                        margin: "0 50px 50px 0",
+                        height: "+=" + timeRemainingBoxSizeChange,
+                        width: "+=" + timeRemainingBoxSizeChange
+                    });
+                }
             }
         }
     }).blur(function () {
-        var aWidth = $(this).css("width");
-        if ($(this).children(":focus").length == 0 && $(this).width != "150px" && $(this).height != "150px") {
+        var currWidth = $(this).css("width");
+        var currHeight = $(this).css("height");
+        if ($(this).children(":focus").length == 0 && currWidth != "150px" && currHeight != "150px") {
             taskInTransition = true;
             $(this).animate({
                 width: "-=150", height: "-=150", fontSize: "-=10pt", padding: "-=25px", zIndex: "-=1"
