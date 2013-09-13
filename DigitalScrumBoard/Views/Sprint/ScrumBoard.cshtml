@@ -2,24 +2,13 @@
 @using DigitalScrumBoard.Data
 
 @{
-    Layout = null;
+    Layout = "/Views/Shared/SiteLayout.cshtml";
 }
 
-<!DOCTYPE html>
+   <div id="dialog" title="Manage Task" style="display: none;">
+        <p>Dialog failed to generate. An error probably occurred</p>
+   </div>
 
-<html>
-<head>
-    <title>Digital Scrum Board</title>
-    <link href="~/Content/stylesheets/scrumboard.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-2.0.3.js"></script>
-    <script src="~/Scripts/jquery-ui-1.9.2.js"></script>
-    <script src="~/Scripts/jquery.balloon.js"></script>
-    <script src="~/Scripts/digitalscrumboard.js"></script>
-    <script src="~/Scripts/jquery-touch.js"></script>
-    <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
-</head>
-<body>
    <div id="container">
        <div id="NotDoneCol" class="droppableCol">
            <p class="colHeader">Not Done</p>
@@ -70,5 +59,3 @@
            }
        </div>
    </div>
-</body>
-</html>

@@ -34,5 +34,16 @@ namespace DigitalScrumBoard.Data.Properties {
                 return ((string)(this["aspnetdbConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=av7uk7m6sw.database.windows.net;Initial Catalog=DigitalScrumBoard;Use" +
+            "r ID=adjones;Password=d33P_5P4C39")]
+        public string DigitalScrumBoardConnectionString {
+            get {
+                return ((string)(this["DigitalScrumBoardConnectionString"]));
+            }
+        }
     }
 }

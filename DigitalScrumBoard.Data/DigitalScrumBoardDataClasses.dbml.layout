@@ -1,37 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DigitalScrumBoardDataClasses">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.25, 8.5" name="DigitalScrumBoardDataClasses">
   <DataContextMoniker Name="/DigitalScrumBoardDataClassesDataContext" />
   <nestedChildShapes>
-    <classShape Id="644ee436-c0b2-4253-9e33-0a8b6ff442f1" absoluteBounds="0.75, 1.625, 2, 1.1939925130208335">
+    <classShape Id="82e10017-b8fd-452c-86cd-c2cd06e5993f" absoluteBounds="3.5, 3.875, 2, 1.9631982421875005">
       <DataClassMoniker Name="/DigitalScrumBoardDataClassesDataContext/Sprint" />
       <nestedChildShapes>
-        <elementListCompartment Id="5cfca298-e562-41fe-aa3e-e4df91a70bd1" absoluteBounds="0.765, 2.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="012aa284-e6b8-43b1-8fb5-e0968400b273" absoluteBounds="3.515, 4.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="98f5873e-87e4-4e12-ab51-397e895dcaf7" absoluteBounds="3.5, 1.5, 2, 1.3862939453125003">
+    <classShape Id="4cedb0c7-1071-4255-8b14-369fe863592a" absoluteBounds="6.25, 4.125, 2, 1.3862939453125005">
       <DataClassMoniker Name="/DigitalScrumBoardDataClassesDataContext/Story" />
       <nestedChildShapes>
-        <elementListCompartment Id="01dd2219-7e5a-40e5-9fd9-c17c639a8047" absoluteBounds="3.515, 1.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="ccf54c46-f146-42f6-8f9b-c78016bdf497" absoluteBounds="6.265, 4.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="b2d88852-3f70-4fdb-b0d2-dfd6040123c7" absoluteBounds="6.25, 1, 2, 2.5401025390625005">
+    <classShape Id="8cf271e4-74c8-40a6-b583-0140fe813a7c" absoluteBounds="9, 3.625, 2, 2.5401025390625005">
       <DataClassMoniker Name="/DigitalScrumBoardDataClassesDataContext/Task" />
       <nestedChildShapes>
-        <elementListCompartment Id="bd11570b-9843-4885-8bea-c1b70dbc5b14" absoluteBounds="6.265, 1.46, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="6a873024-951b-42c2-94c0-d1624d369304" absoluteBounds="9.015, 4.085, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 2.22199625651042); (3.5 : 2.22199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <classShape Id="57404f42-4180-417b-94bf-b0b215c5cbf0" absoluteBounds="0.75, 3, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/DigitalScrumBoardDataClassesDataContext/Team" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b2bd167c-e4a7-495b-acf5-d9a001224974" absoluteBounds="0.765, 3.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0c32d85d-be8e-4ed5-92b5-5982112f6c89" absoluteBounds="3.5, 1.125, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/DigitalScrumBoardDataClassesDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="591bda25-a94c-49a1-ae43-4ec7bc9d11bb" absoluteBounds="3.515, 1.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 4.81814697265625); (6.25 : 4.81814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DigitalScrumBoardDataClassesDataContext/Sprint/Sprint_Story" />
       <nodes>
-        <classShapeMoniker Id="644ee436-c0b2-4253-9e33-0a8b6ff442f1" />
-        <classShapeMoniker Id="98f5873e-87e4-4e12-ab51-397e895dcaf7" />
+        <classShapeMoniker Id="82e10017-b8fd-452c-86cd-c2cd06e5993f" />
+        <classShapeMoniker Id="4cedb0c7-1071-4255-8b14-369fe863592a" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 2.19314697265625); (6.25 : 2.19314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.25 : 4.81814697265625); (9 : 4.81814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DigitalScrumBoardDataClassesDataContext/Story/Story_Task" />
       <nodes>
-        <classShapeMoniker Id="98f5873e-87e4-4e12-ab51-397e895dcaf7" />
-        <classShapeMoniker Id="b2d88852-3f70-4fdb-b0d2-dfd6040123c7" />
+        <classShapeMoniker Id="4cedb0c7-1071-4255-8b14-369fe863592a" />
+        <classShapeMoniker Id="8cf271e4-74c8-40a6-b583-0140fe813a7c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.03449625651042); (3.5 : 4.03449625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DigitalScrumBoardDataClassesDataContext/Team/Team_Sprint" />
+      <nodes>
+        <classShapeMoniker Id="57404f42-4180-417b-94bf-b0b215c5cbf0" />
+        <classShapeMoniker Id="82e10017-b8fd-452c-86cd-c2cd06e5993f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 3); (1.75 : 2.01044840494792); (3.5 : 2.01044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DigitalScrumBoardDataClassesDataContext/Team/Team_User" />
+      <nodes>
+        <classShapeMoniker Id="57404f42-4180-417b-94bf-b0b215c5cbf0" />
+        <classShapeMoniker Id="0c32d85d-be8e-4ed5-92b5-5982112f6c89" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

@@ -6,6 +6,10 @@ var isFirefox = !(window.mozInnerScreenX == null);
 // Start-up function
 $(function () {
     checkMobileMode();
+
+    $("#register").click(function () {
+        window.location = "/User/Register";
+    });
 });
 
 // Window resizing features
@@ -25,6 +29,8 @@ $(window).bind('resizeEnd', function () {
 function checkMobileMode() {
     var width = $(window).width();
     if (width > 1000) {
+        turnOffAllTaskFunctionality();
+
         makeDraggableAndDroppable();
         clickResize();
         $(".draggableTask p:last-child").mousedown(function (event) {
@@ -32,21 +38,36 @@ function checkMobileMode() {
         });
     }
     else {
-        try
-        {
-            $(".draggableTask").off();
-
-            $(".draggableTask").draggable("destroy");
-            $(".droppableCol").droppable("destroy");
-        }
-        catch (ex)
-        {
-            // Failed to turn off some draggable/droppable functionality... 
-            // not the end of the world. May occur on first loading the page
-            // whilst in mobile mode.
-        }
-        //makeBalloon();
+        turnOffAllTaskFunctionality();
+        makeDialog();
     }
+}
+
+function turnOffAllTaskFunctionality() {
+    try {
+        $(".draggableTask").off();
+        $(".draggableTask").draggable("destroy");
+        $(".droppableCol").droppable("destroy");
+    }
+    catch (ex) {
+        // Failed to turn off some draggable/droppable functionality... 
+        // not the end of the world. May occur on first loading the page
+        // whilst in mobile mode.
+    }
+}
+
+function makeDialog() {
+    $(".task").click(function () {
+
+        $.ajax({ // AJAX call to persist co-ordinate updates after dropping task
+            cache: false,
+            url: "/Task/GetTaskDetails_Ajax",
+            data: { id: $(this).attr("id") }
+        }).done(function (result) {
+            $("#dialog").html(result);
+            $("#dialog").dialog();
+        });
+    })
 }
 
 // Function to make tasks draggable and columns droppable

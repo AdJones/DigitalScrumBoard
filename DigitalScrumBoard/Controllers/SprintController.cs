@@ -14,8 +14,11 @@ namespace DigitalScrumBoard.Controllers
         //
         // GET: /Sprint/ScrumBoard/
 
+        [Authorize]
         public ActionResult ScrumBoard()
         {
+            ViewBag.Page = "board";
+
             TaskRepository repository = new TaskRepository();
             int sprintId = 0;
 
@@ -27,6 +30,17 @@ namespace DigitalScrumBoard.Controllers
 
             ScrumBoardViewModel model = new ScrumBoardViewModel(stories);
             return View(model);
+        }
+
+        [Authorize]
+        public ActionResult BurnDown(int sprintId)
+        {
+            // List of int with hours left
+
+            ViewData["Chart"] = new List<int> { 1,2,3 } ;
+            // List of int with days
+
+            return View();
         }
     }
 }

@@ -1,0 +1,26 @@
+﻿@model DigitalScrumBoard.Models.ViewModels.TaskPartialViewModel
+@*hello task number @Model.ID*@
+
+@using (Html.BeginForm("UpdateTaskFromMobileView", "Task"))
+{
+    @Html.HiddenFor(x => x.ID)
+    <p>
+        @Html.LabelFor(x => x.CurrColumn, "Current Column")
+        @Html.DropDownListFor(
+            x => x.CurrColumn,
+            new SelectList(Model.Items, "Value", "Text")
+        )
+    </p>
+    <p>
+        @Html.LabelFor(x => x.Text, "Task Text")
+        @Html.TextAreaFor(x => x.Text)
+    </p>
+    <p>
+        @Html.LabelFor(x => x.TimeRemaining, "Time Remaining (Hours)")
+        @Html.TextBoxFor(x => x.TimeRemaining)
+    </p>
+
+    <p>
+        <input id="submitChanges" type="submit" value="Submit Changes" />
+    </p>
+}

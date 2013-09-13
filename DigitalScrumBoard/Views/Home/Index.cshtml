@@ -1,0 +1,37 @@
+﻿@model DigitalScrumBoard.Models.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/SiteLayout.cshtml";
+}
+
+<div class="jumbotron">
+    <div class="container">
+        @using (Html.BeginForm())
+        {
+            <h2>Home</h2>
+            <h3>Scrum boards for your team: @Model.team.Name</h3>
+            
+            foreach (DigitalScrumBoard.Data.Sprint s in Model.sprints)
+            {
+                <table id="Sprints">
+                    <tr>
+                        <th>Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Goals</th>
+                    </tr>
+                    <tr>
+                        <td><a href="/Sprint/ScrumBoard/@s.ID">@s.Name</a></td>
+                        <td>@s.StartDate</td>
+                        <td>@s.EndDate</td>
+                        <td>@s.Goals</td>
+                    </tr>
+                </table>
+            }
+            
+            <p id="AddBoardButton">
+                <button type="button" class="btn btn-primary btn-lg">Add Board</button>
+            </p>
+        }
+    </div>
+</div>

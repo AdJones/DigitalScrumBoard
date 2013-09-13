@@ -1,10 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DigitalScrumBoard.SqlDB" Class="DigitalScrumBoardDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=ADAM-PC;Initial Catalog=DigitalScrumBoard.SqlDB;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="DigitalScrumBoard.Data.Properties.Settings" SettingsPropertyName="aspnetdbConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DigitalScrumBoard" Class="DigitalScrumBoardDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=av7uk7m6sw.database.windows.net;Initial Catalog=DigitalScrumBoard;User ID=adjones" SettingsObjectName="DigitalScrumBoard.Data.Properties.Settings" SettingsPropertyName="DigitalScrumBoardConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Sprint" Member="Sprints">
     <Type Name="Sprint">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Goals" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TeamId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Sprint_Story" Member="Stories" ThisKey="ID" OtherKey="SprintId" Type="Story" />
+      <Association Name="Team_Sprint" Member="Team" ThisKey="TeamId" OtherKey="ID" Type="Team" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Story" Member="Stories">
@@ -28,6 +33,24 @@
       <Column Name="CurrentCol" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="TimeRemaining" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Story_Task" Member="Story" ThisKey="StoryID" OtherKey="ID" Type="Story" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Team" Member="Teams">
+    <Type Name="Team">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Team_Sprint" Member="Sprints" ThisKey="ID" OtherKey="TeamId" Type="Sprint" />
+      <Association Name="Team_User" Member="Users" ThisKey="ID" OtherKey="TeamId" Type="User" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="TeamId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="ImageURL" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Team_User" Member="Team" ThisKey="TeamId" OtherKey="ID" Type="Team" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

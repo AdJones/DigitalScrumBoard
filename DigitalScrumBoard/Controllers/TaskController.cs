@@ -14,6 +14,7 @@ namespace DigitalScrumBoard.Controllers
         //
         // GET: /Task/
 
+        [Authorize]
         public ActionResult Index(Task task)
         {
             TaskPartialViewModel model = new TaskPartialViewModel(task);
@@ -39,7 +40,6 @@ namespace DigitalScrumBoard.Controllers
             string updatedTaskText = Request["taskText"];
             string updatedTaskTime = Request["taskTime"];
             string idFromClient = Request["id"];
-            int idStartingPoint = idFromClient.LastIndexOf('_') + 1;
             int id = int.Parse(idFromClient);
 
             int time = 0;
@@ -47,6 +47,42 @@ namespace DigitalScrumBoard.Controllers
 
             TaskRepository repository = new TaskRepository();
             repository.UpdateTaskDetails(id, updatedTaskText, time, validTimeReceived);
+        }
+
+        public ActionResult UpdateTaskFromMobileView()
+        {
+            string idFromClient = Request.Form["id"];
+            string updatedTaskText = Request.Form["Text"];
+            string updatedTaskTime = Request.Form["TimeRemaining"];
+            string updatedColumn = Request.Form["CurrColumn"];
+            int id = int.Parse(idFromClient);
+
+            int time = 0;
+            bool validTimeReceived = int.TryParse(updatedTaskTime, out time);
+
+            TaskRepository repository = new TaskRepository();
+            repository.UpdateTaskDetails(id, updatedTaskText, time, validTimeReceived);
+            repository.UpdateColumnMobileView(id, updatedColumn);
+            return RedirectToAction("ScrumBoard", "Sprint");
+        }
+
+        public ActionResult GetTaskDetails_Ajax()
+        {
+            string idFromClient = Request["id"];
+            int id = 0;
+            int.TryParse(idFromClient, out id);
+            TaskRepository repository = new TaskRepository();
+
+            if (id != 0)
+            {
+                Task task = repository.GetTaskById(id);
+                TaskPartialViewModel model = new TaskPartialViewModel(task);
+                return PartialView("TaskDetails", model);
+            }
+            else
+            {
+                return PartialView("Error");
+            }
         }
     }
 }

@@ -1,0 +1,33 @@
+﻿@model DigitalScrumBoard.Models.ViewModels.UserViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/SiteLayout.cshtml";
+}
+
+<h2>Register</h2>
+
+<div class="jumbotron">
+    <div class="container">
+        <h2>Welcome! Register here</h2>
+        @using (Html.BeginForm())
+        {
+            <p>
+                @Html.LabelFor(u => u.Email)
+                @Html.TextBoxFor(u => u.Email)
+            </p>
+            <p>
+                @Html.LabelFor(u => u.Password)
+                @Html.PasswordFor(u => u.Password)
+            </p>
+            <p>
+                @Html.LabelFor(u => u.teams, "Select your team")
+                @Html.DropDownListFor(
+                    x => x.Team,
+                    new SelectList(Model.teams, "Value", "Text")
+                )
+            </p>
+            
+            <button type="submit" class="btn btn-primary btn-lg">Register</button>
+        }
+    </div>
+</div>

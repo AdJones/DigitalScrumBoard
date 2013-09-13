@@ -5,6 +5,7 @@
 #container {
     width: 100%;
     overflow: hidden;
+    margin-top: 50px;
 }
 
 .droppableCol {
@@ -30,30 +31,35 @@
     background-image: url('/Content/images/post-it-yellow-trans.png')!important;
     order: 4;
     -ms-flex-order: 4;
+    -webkit-flex-order: 4;
 }
 
 .TestTask {
     background-image: url('/Content/images/post-it-blue-trans.png')!important;
     order: 5;
     -ms-flex-order: 5;
+    -webkit-flex-order: 5;
 }
 
 .BlockTask {
     background-image: url('/Content/images/post-it-pink-trans.png')!important;
     order: 3;
     -ms-flex-order: 3;
+    -webkit-flex-order: 3;
 }
 
 .UserStoryTask {
     background-image: url('/Content/images/post-it-orange-trans.png')!important;
     order: 1;
     -ms-flex-order: 1;
+    -webkit-flex-order: 1;
 }
 
 .SatisfactionConditionsTask {
     background-image: url('/Content/images/post-it-green-trans.png')!important;
     order: 2;
     -ms-flex-order: 2;
+    -webkit-flex-order: 2;
 }
 
 .taskText {
@@ -77,6 +83,29 @@
     color: #808080;
     font-size: 18px;
     text-align: center;
+}
+
+.navbar-form {
+    color: #999;
+}
+
+#Sprints {
+    border: 1px solid black;   
+}
+
+#Sprints th
+ {
+    padding:15px;
+    border: 1px solid black;
+ }
+#Sprints td
+ {
+    padding:15px;
+    border: 1px solid black;
+ }
+
+#AddBoardButton {
+    margin: 20px 20px 20px 0;
 }
 
 @media screen and (max-width: 1000px) {
@@ -105,8 +134,10 @@
     }*/
     .taskStoryContainer {
         clear: left;
+        display: -webkit-flex;
         display: flex;
         display: -ms-flexbox;
+        -webkit-flex-direction: row;
         flex-direction: row;
         -ms-flex-direction: row;
         float: left;

@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace DigitalScrumBoard.Models.ViewModels
 {
@@ -16,7 +18,9 @@ namespace DigitalScrumBoard.Models.ViewModels
         private string text;
         private int storyId;
         private int timeRemaining;
+        private string currColumn;
 
+        [Range(0, int.MaxValue, ErrorMessage = "Please enter valid number of hours")]
         public int TimeRemaining
         {
             get { return timeRemaining; }
@@ -59,6 +63,20 @@ namespace DigitalScrumBoard.Models.ViewModels
             set { id = value; }
         }
 
+        public string CurrColumn
+        {
+            get { return currColumn; }
+            set { currColumn = value; }
+        }
+
+        private List<SelectListItem> items;
+
+        public List<SelectListItem> Items
+        {
+            get { return items; }
+            set { items = value; }
+        }
+
         public TaskPartialViewModel(Task t)
         {
             this.id = t.ID;
@@ -68,6 +86,17 @@ namespace DigitalScrumBoard.Models.ViewModels
             this.text = t.Text;
             this.timeRemaining = t.TimeRemaining;
             this.storyId = t.StoryID;
+            this.currColumn = t.CurrentCol;
+
+            string[] availableCols = new string[] { "NotDoneCol", "InProgressCol", "InTestCol", "DoneCol" };
+            this.items = new List<SelectListItem>();
+            foreach (string col in availableCols)
+            {
+                SelectListItem item = new SelectListItem();
+                item.Text = col;
+                item.Value = col;
+                this.items.Add(item);
+            }
         }
     }
 }

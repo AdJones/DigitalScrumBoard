@@ -1,0 +1,44 @@
+﻿@model DigitalScrumBoard.Views.Sprint.BurnDown
+
+        <p>
+
+  	 		 @{System.Web.UI.DataVisualization.Charting.Chart Chart2 = new System.Web.UI.DataVisualization.Charting.Chart();
+             Chart2.Width = 412;
+             Chart2.Height = 296;
+             Chart2.RenderType = System.Web.UI.DataVisualization.Charting.RenderType.ImageTag;
+             
+             Chart2.Palette = System.Web.UI.DataVisualization.Charting.ChartColorPalette.BrightPastel;
+             System.Web.UI.DataVisualization.Charting.Title t = new System.Web.UI.DataVisualization.Charting.Title("No Code Behind Page", System.Web.UI.DataVisualization.Charting.Docking.Top, new System.Drawing.Font("Trebuchet MS", 14, System.Drawing.FontStyle.Bold), System.Drawing.Color.FromArgb(26, 59, 105));
+             Chart2.Titles.Add(t);
+             Chart2.ChartAreas.Add("Series 1");
+                  
+             Chart2.Series.Add("Series 1");
+             Chart2.Series.Add("Series 2");
+             
+             //Add points to Series 1
+             foreach (int value in (List<int>)ViewData["Chart"])
+             {
+                 Chart2.Series["Series 1"].Points.AddY(value);
+             }
+             
+             //Add points to Series 2
+             foreach (int value in (List<int>)ViewData["Chart"])
+             {
+                 Chart2.Series["Series 2"].Points.AddY(value + 1);
+             }
+             
+             Chart2.BorderSkin.SkinStyle = System.Web.UI.DataVisualization.Charting.BorderSkinStyle.Emboss;
+             Chart2.BorderColor = System.Drawing.Color.FromArgb(26, 59, 105);
+             Chart2.BorderlineDashStyle = System.Web.UI.DataVisualization.Charting.ChartDashStyle.Solid;
+             Chart2.BorderWidth = 2;
+             
+             Chart2.Legends.Add("Legend1");
+             
+	 		// Render chart control
+             Chart2.Page = new Page();
+	 		HtmlTextWriter writer = new HtmlTextWriter(Page.Response.Output);
+	 		Chart2.RenderControl(writer);
+            }
+
+
+        </p>

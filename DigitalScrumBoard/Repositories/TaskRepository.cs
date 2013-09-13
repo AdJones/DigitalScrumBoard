@@ -50,5 +50,42 @@ namespace DigitalScrumBoard.Repositories
                 this.context.SubmitChanges();
             }
         }
+
+        public void UpdateColumnMobileView(int id, string columnName)
+        {
+            Task task = this.context.Tasks.SingleOrDefault(t => t.ID == id);
+
+            int left = 0;
+
+            //TODO: Fuuuugly... needs fixing if and when columns are made to be configurable
+            switch (columnName)
+            {
+                case "NotDoneCol":
+                    left = 5;
+                    break;
+                case "InProgressCol":
+                    left = 30;
+                    break;
+                case "InTestCol":
+                    left = 55;
+                    break;
+                case "DoneCol":
+                    left = 80;
+                    break;
+            }
+
+            if (left != 0)
+            {
+                task.Left = left;
+            }
+            task.CurrentCol = columnName;
+            this.context.SubmitChanges();
+            
+        }
+
+        public Task GetTaskById(int id)
+        {
+            return this.context.Tasks.SingleOrDefault(t => t.ID == id);
+        }
     }
 }
