@@ -77,6 +77,18 @@ namespace DigitalScrumBoard.Models.ViewModels
             set { items = value; }
         }
 
+        private List<SelectListItem> stories;
+
+        public List<SelectListItem> Stories
+        {
+            get { return stories; }
+            set { stories = value; }
+        }
+
+        public TaskPartialViewModel()
+        {
+        }
+
         public TaskPartialViewModel(Task t)
         {
             this.id = t.ID;

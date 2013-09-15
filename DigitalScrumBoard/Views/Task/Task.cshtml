@@ -1,0 +1,36 @@
+﻿@model DigitalScrumBoard.Models.ViewModels.TaskPartialViewModel
+@using DigitalScrumBoard.Business
+@*hello task number @Model.ID*@
+
+@using (Html.BeginForm("Task", "Task"))
+{
+    @Html.HiddenFor(x => x.ID)
+    <input type="hidden" value="@ViewBag.Sprint" name="sprintId" />
+
+    <p>
+        @Html.LabelFor(x => x.Stories, "Story")
+            @Html.DropDownListFor(x => x.StoryId,
+            new SelectList(Model.Stories, "Value", "Text"))
+    </p>
+    
+        <p>
+        @Html.LabelFor(x => x.CurrColumn, "Type")
+        @Html.DropDownListFor(
+            x => x.Type,
+            Model.Type.ToSelectList()
+        )
+    </p>
+    
+    <p>
+        @Html.LabelFor(x => x.Text, "Task Text")
+        @Html.TextAreaFor(x => x.Text)
+    </p>
+    <p>
+        @Html.LabelFor(x => x.TimeRemaining, "Time Remaining (Hours)")
+        @Html.TextBoxFor(x => x.TimeRemaining)
+    </p>
+
+    <p>
+        <input id="submitChanges" type="submit" value="Add Task" class="btn btn-primary btn-lg" />
+    </p>
+}

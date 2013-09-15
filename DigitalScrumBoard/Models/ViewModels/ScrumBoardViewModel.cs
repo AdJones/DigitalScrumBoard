@@ -9,6 +9,7 @@ namespace DigitalScrumBoard.Models.ViewModels
     public class ScrumBoardViewModel
     {
         private List<Story> stories;
+        private int sprintId;
 
         public List<Story> Stories
         {
@@ -16,8 +17,15 @@ namespace DigitalScrumBoard.Models.ViewModels
             set { stories = value; }
         }
 
-        public ScrumBoardViewModel(List<Story> stories)
+        public int SprintId
         {
+            get { return sprintId; }
+            set { sprintId = value; }
+        }
+
+        public ScrumBoardViewModel(int sprintId, List<Story> stories)
+        {
+            this.sprintId = sprintId;
             this.stories = stories;
         }
     }

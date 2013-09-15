@@ -10,6 +10,24 @@ $(function () {
     $("#register").click(function () {
         window.location = "/User/Register";
     });
+
+    $("#BurnDown").click(function () {
+        var sprintId = $("#SprintId").val();
+        var data = { sprintId: sprintId };
+        makeDialog("/Sprint/BurnDown", data);
+    });
+
+    $("#AddStory").click(function () {
+        var sprintId = $("#SprintId").val();
+        var data = { sprintId: sprintId };
+        makeDialog("/Sprint/Story", data);
+    });
+
+    $("#AddTask").click(function () {
+        var sprintId = $("#SprintId").val();
+        var data = { sprintId: sprintId };
+        makeDialog("/Task/Task", data);
+    });
 });
 
 // Window resizing features
@@ -39,7 +57,11 @@ function checkMobileMode() {
     }
     else {
         turnOffAllTaskFunctionality();
-        makeDialog();
+
+        $(".task").click(function () {
+            var data = { id: $(this).attr("id") };
+            makeDialog("/Task/GetTaskDetails_Ajax", data);
+        })
     }
 }
 
@@ -56,18 +78,19 @@ function turnOffAllTaskFunctionality() {
     }
 }
 
-function makeDialog() {
-    $(".task").click(function () {
-
-        $.ajax({ // AJAX call to persist co-ordinate updates after dropping task
-            cache: false,
-            url: "/Task/GetTaskDetails_Ajax",
-            data: { id: $(this).attr("id") }
-        }).done(function (result) {
-            $("#dialog").html(result);
-            $("#dialog").dialog();
+function makeDialog(url, data) {
+    $.ajax({ // AJAX call to persist co-ordinate updates after dropping task
+        cache: false,
+        url: url,
+        data: data
+    }).done(function (result) {
+        $("#dialog").html(result);
+        $("#dialog").dialog({
+            modal: true,
+            height: 'auto',
+            width: 'auto'
         });
-    })
+    });
 }
 
 // Function to make tasks draggable and columns droppable

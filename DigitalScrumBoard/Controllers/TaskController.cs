@@ -84,5 +84,44 @@ namespace DigitalScrumBoard.Controllers
                 return PartialView("Error");
             }
         }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult Task()
+        {
+            int sprintId = 0;
+            int.TryParse(Request["sprintId"].ToString(), out sprintId);
+            SprintRepository repo = new SprintRepository();
+            ViewBag.Sprint = sprintId;
+
+            TaskPartialViewModel model = new TaskPartialViewModel(new Task());
+            model.Stories = new List<SelectListItem>();
+            foreach (Story s in repo.GetStories(sprintId))
+            {
+                SelectListItem item = new SelectListItem();
+                item.Text = s.Text;
+                item.Value = s.ID.ToString();
+                model.Stories.Add(item);
+            }
+
+            return PartialView(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Task(TaskPartialViewModel model)
+        {
+            string idFromClient = Request.Form["sprintId"];
+            int sprintId = 0;
+            int.TryParse(Request["sprintId"].ToString(), out sprintId);
+            TaskRepository taskRepo = new TaskRepository();
+
+            if (ModelState.IsValid)
+            {
+                taskRepo.CreateTask(model.Text, model.Type, model.StoryId, 1, model.TimeRemaining);
+            }
+
+            return RedirectToAction("ScrumBoard", "Sprint", new { id = sprintId });
+        }
     }
 }

@@ -1,0 +1,23 @@
+﻿@model DigitalScrumBoard.Models.ViewModels.Partials.StoryViewModel
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm())
+{
+    <input type="hidden" value="@ViewBag.Sprint" name="sprintId" />
+    
+    <p>
+        @Html.LabelFor(x => x.SatisfactionConditions)
+        @Html.TextAreaFor(x => x.SatisfactionConditions)
+    </p>
+
+    <p>
+        @Html.LabelFor(x => x.Text)
+        @Html.TextAreaFor(x => x.Text)
+    </p>
+    
+    <p>
+        <button id="SubmitAddStory" type="submit" class="btn btn-primary btn-lg">Add Story</button>
+    </p>
+}

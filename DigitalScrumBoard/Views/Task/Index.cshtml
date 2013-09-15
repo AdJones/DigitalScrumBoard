@@ -1,6 +1,6 @@
 ﻿@model DigitalScrumBoard.Models.ViewModels.TaskPartialViewModel
 
-<div id="@Model.ID" class="task draggableTask @(Model.Type)Task" style="left:@(Model.Left)%;top:@(Model.Top)px;" data-storyid="@Model.StoryId" title="@Model.Text">
+<div id="@Model.ID" class="task draggableTask @(Model.Type)Task" style="left:@(Model.Left)%;top:@(Model.Top)px;" data-storyid="@Model.StoryId" title="@Model.Type">
     <p class="taskText">
         @Model.Text
     </p>

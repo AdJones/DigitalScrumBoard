@@ -1,4 +1,5 @@
-﻿using DigitalScrumBoard.Data;
+﻿using DigitalScrumBoard.Business;
+using DigitalScrumBoard.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,6 +87,36 @@ namespace DigitalScrumBoard.Repositories
         public Task GetTaskById(int id)
         {
             return this.context.Tasks.SingleOrDefault(t => t.ID == id);
+        }
+
+        public void CreateTask(string text, TaskType type, int storyId, int ownerId, int timeRemaining)
+        {
+            Task t = new Task();
+            t.OwnerID = ownerId;
+            t.StoryID = storyId;
+            t.Type = (int)type;
+            t.Text = text;
+            t.TimeRemaining = timeRemaining;
+
+            // Set left to be 5% (in the Not Done Column)
+            t.CurrentCol = "NotDoneCol";
+            t.Left = 5;
+
+            if (type == TaskType.SatisfactionConditions)
+            {
+                // If we have satisfaction conditions, give it the same height as the story but slightly more to the right
+                t.Top = context.Tasks.SingleOrDefault(s => s.StoryID == storyId).Top;
+                t.Left = 10;
+            }
+            else
+            {
+                // Set top of new task to a random height
+                Random rnd = new Random();
+                t.Top = rnd.Next(60, 400);
+            }
+
+            context.Tasks.InsertOnSubmit(t);
+            context.SubmitChanges();
         }
     }
 }

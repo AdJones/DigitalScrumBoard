@@ -6,6 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DotNet.Highcharts;
+using DotNet.Highcharts.Enums;
+using DotNet.Highcharts.Options;
+using DigitalScrumBoard.Models.ViewModels.Partials;
 
 namespace DigitalScrumBoard.Controllers
 {
@@ -28,19 +32,86 @@ namespace DigitalScrumBoard.Controllers
             }
             List<Story> stories = repository.GetScrumStories(sprintId);
 
-            ScrumBoardViewModel model = new ScrumBoardViewModel(stories);
+            ScrumBoardViewModel model = new ScrumBoardViewModel(sprintId, stories);
             return View(model);
         }
 
         [Authorize]
-        public ActionResult BurnDown(int sprintId)
+        public ActionResult BurnDown()
         {
-            // List of int with hours left
+            int sprintId = 0;
+            int.TryParse(Request["sprintId"].ToString(), out sprintId);
+            SprintRepository repository = new SprintRepository();
+            Sprint sprint = repository.GetSprint(sprintId);
+            
+            if (sprint != null)
+            {
+                List<DateTime> dates = Helpers.DateTimeHelpers.GetAllDatesBetween(sprint.StartDate.Value, sprint.EndDate.Value).ToList<DateTime>();
+                string[] dateStrings = new string[dates.Count];
+                object[] values = new object[dates.Count];
+                for (int i = 0; i < dates.Count; i++)
+                {
+                    dateStrings[i] = dates[i].ToString("dd/MM/yyyy");
+                }
 
-            ViewData["Chart"] = new List<int> { 1,2,3 } ;
-            // List of int with days
+                for (int i = dates.Count; i > 0; i--)
+                {
+                    values[dates.Count - i] = i * 5;
+                }
 
-            return View();
+                XAxisLabels labels = new XAxisLabels();
+                labels.Rotation = -45;
+                labels.Align = HorizontalAligns.Right;
+
+                Title title = new Title();
+                title.Text = "Burndown for " + sprint.Name;
+                Highcharts chart = new DotNet.Highcharts.Highcharts("chart")
+                    .SetTitle(title)
+                    .SetXAxis(new XAxis
+                    {
+                        Categories = dateStrings,
+                        Id = "Days of sprint",
+                        Labels = labels
+                    })
+                    .SetSeries(new Series
+                    {
+                        Data = new DotNet.Highcharts.Helpers.Data(values),
+                        Name = "Hours Remaining"
+                    });
+                return View(chart);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult Story()
+        {
+            int sprintId = 0;
+            int.TryParse(Request["sprintId"].ToString(), out sprintId);
+            ViewBag.Sprint = sprintId;
+
+            return PartialView();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Story(StoryViewModel storyModel)
+        {
+            string idFromClient = Request.Form["sprintId"];
+            int sprintId = 0;
+            int.TryParse(Request["sprintId"].ToString(), out sprintId);
+
+            SprintRepository sprintRepos = new SprintRepository();
+            TaskRepository taskRepos = new TaskRepository();
+            Story createdStory = sprintRepos.CreateStory(storyModel.Text, sprintId);
+            taskRepos.CreateTask(storyModel.Text, Business.TaskType.UserStory, createdStory.ID, 0, 0);
+            taskRepos.CreateTask(storyModel.SatisfactionConditions, Business.TaskType.SatisfactionConditions, createdStory.ID, 0, 0);
+
+            return RedirectToAction("ScrumBoard", "Sprint", new { id = sprintId });
         }
     }
 }

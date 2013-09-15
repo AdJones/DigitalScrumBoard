@@ -4,8 +4,10 @@
 @{
     Layout = "/Views/Shared/SiteLayout.cshtml";
 }
+    
+   <input id="SprintId" type="hidden" value="@Model.SprintId" />
 
-   <div id="dialog" title="Manage Task" style="display: none;">
+   <div id="dialog" title="Popup Dialog" style="display: none;">
         <p>Dialog failed to generate. An error probably occurred</p>
    </div>
 
@@ -47,7 +49,7 @@
            }
        </div>
        <div id="DoneCol" class="droppableCol">
-           <p class="colHeader">Done :-)</p>
+           <p class="colHeader">Done ☺</p>
            @foreach (Story s in Model.Stories)
            {
                <div class="taskStoryContainer" data-storyid="@s.ID">
