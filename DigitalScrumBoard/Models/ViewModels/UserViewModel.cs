@@ -16,6 +16,9 @@ namespace DigitalScrumBoard.Models.ViewModels
         [Display(Name = "Email Address")]
         public string Email { get; set; }
 
+        [Display(Name = "Avatar URL")]
+        public string ImageURL { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

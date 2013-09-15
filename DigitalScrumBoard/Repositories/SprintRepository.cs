@@ -28,5 +28,17 @@ namespace DigitalScrumBoard.Repositories
         {
             return context.Stories.Where(s => s.SprintId == sprintId).ToList<Story>();
         }
+
+        public void AddBoard(string goals, string name, DateTime start, DateTime end, int teamId)
+        {
+            Sprint s = new Sprint();
+            s.Name = name;
+            s.StartDate = start;
+            s.EndDate = end;
+            s.Goals = goals;
+            s.TeamId = teamId;
+            context.Sprints.InsertOnSubmit(s);
+            context.SubmitChanges();
+        }
     }
 }

@@ -13,12 +13,19 @@
             new SelectList(Model.Stories, "Value", "Text"))
     </p>
     
-        <p>
+    <p>
         @Html.LabelFor(x => x.CurrColumn, "Type")
         @Html.DropDownListFor(
             x => x.Type,
             Model.Type.ToSelectList()
         )
+    </p>
+    
+    <p>
+        @Html.LabelFor(x => x.OwnerId, "Owner")
+        @Html.DropDownListFor(
+            x => x.OwnerId,
+            new SelectList(Model.TeamMembers, "Value", "Text"))
     </p>
     
     <p>

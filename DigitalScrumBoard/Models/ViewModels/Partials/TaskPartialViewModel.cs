@@ -85,6 +85,31 @@ namespace DigitalScrumBoard.Models.ViewModels
             set { stories = value; }
         }
 
+        private int ownerId;
+
+        public int OwnerId
+        {
+            get { return ownerId; }
+            set { ownerId = value; }
+        }
+
+
+        private User owner;
+
+        public User Owner
+        {
+            get { return owner; }
+            set { owner = value; }
+        }
+
+        private List<SelectListItem> teamMembers;
+
+        public List<SelectListItem> TeamMembers
+        {
+            get { return teamMembers; }
+            set { teamMembers = value; }
+        }
+
         public TaskPartialViewModel()
         {
         }

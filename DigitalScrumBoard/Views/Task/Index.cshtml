@@ -4,11 +4,18 @@
     <p class="taskText">
         @Model.Text
     </p>
-    <p class="timeRemaining">
+    @if (Model.Type != DigitalScrumBoard.Business.TaskType.UserStory
+        && Model.Type != DigitalScrumBoard.Business.TaskType.SatisfactionConditions
+        && Model.Owner != null){
+            <div class="mugShot" contenteditable="false" title="@Model.Owner.Email">        
+                   <img src="@Model.Owner.ImageURL" />
+            </div>
+        }
+                
     @if (Model.Type != DigitalScrumBoard.Business.TaskType.UserStory
         && Model.Type != DigitalScrumBoard.Business.TaskType.SatisfactionConditions){
-        
+        <div class="timeRemaining" title="@Model.TimeRemaining hours remaining">
             @Model.TimeRemaining
+        </div>
     }
-    </p>
 </div>

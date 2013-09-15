@@ -1,6 +1,6 @@
 ﻿var taskInTransition = false;
 var animationSpeed = 400;
-var timeRemainingBoxSizeChange = "10px";
+var timeRemainingBoxSizeChange = "20px";
 var isFirefox = !(window.mozInnerScreenX == null);
 
 // Start-up function
@@ -28,6 +28,13 @@ $(function () {
         var data = { sprintId: sprintId };
         makeDialog("/Task/Task", data);
     });
+
+    $("#AddBoard").click(function () {
+        window.location = "/Sprint/AddBoard";
+    });
+
+    $("#StartDate").datepicker({ dateFormat: 'dd/mm/yy' });
+    $("#EndDate").datepicker({ dateFormat: 'dd/mm/yy' });
 });
 
 // Window resizing features
@@ -79,7 +86,7 @@ function turnOffAllTaskFunctionality() {
 }
 
 function makeDialog(url, data) {
-    $.ajax({ // AJAX call to persist co-ordinate updates after dropping task
+    $.ajax({ 
         cache: false,
         url: url,
         data: data
@@ -196,11 +203,18 @@ function clickResize() {
                         $(this).attr('contenteditable', 'true');
                         $(this).css("opacity", "1");
                         $(this).focus();
+                        //$(this).find('.taskText').focus();
                     });
-                    $(this).children(':last').animate({
-                        margin: "0 50px 50px 0",
+                    $(this).children('div').animate({
+                        margin: "0 50px 50px 50px",
                         height: "+=" + timeRemainingBoxSizeChange,
                         width: "+=" + timeRemainingBoxSizeChange
+                    });
+
+                    $(this).children('div').children('img').click(function () {
+                        var taskid = $(this).parent().parent().attr("id");
+                        var data = { id: taskid };
+                        makeDialog("/Task/GetTaskDetails_Ajax", data);
                     });
                 }
             }
@@ -219,7 +233,7 @@ function clickResize() {
                 var updatedTaskText = "";
                 var updatedTaskTime;
                 var taskid = $(this).attr("id")
-                $(this).children(":not(:last-child)").each(function () { updatedTaskText += $(this).html() + "\n" });
+                $(this).children(":not(div)").each(function () { updatedTaskText += $(this).html() + "\n" });
                 try {
                     updatedTaskTime = $(this).children(":last-child").html().match(/\d/g)[0];
                 }
@@ -232,8 +246,8 @@ function clickResize() {
                     data: { id: taskid, taskText: updatedTaskText, taskTime: updatedTaskTime }
                 });
             })
-            $(this).children(':last').animate({
-                margin: "0 20px 20px 0",
+            $(this).children('div').animate({
+                margin: "0 20px 20px 30px",
                 height: "-=" + timeRemainingBoxSizeChange,
                 width: "-=" + timeRemainingBoxSizeChange
             });

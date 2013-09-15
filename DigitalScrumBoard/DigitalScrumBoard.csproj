@@ -122,6 +122,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Helpers.cs" />
+    <Compile Include="Models\ViewModels\BoardViewModel.cs" />
     <Compile Include="Models\ViewModels\BurnDownViewModel.cs" />
     <Compile Include="Models\ViewModels\HomeViewModel.cs" />
     <Compile Include="Models\ViewModels\Partials\StoryViewModel.cs" />
@@ -138,7 +139,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\images\Adam.png" />
     <Content Include="Content\images\bar_chart.png" />
+    <Content Include="Content\images\Default.png" />
     <Content Include="Content\images\cardboard_flat.png" />
     <Content Include="Content\images\lionhead.png" />
     <Content Include="Content\images\post-it-blue-trans.png" />
@@ -215,6 +218,7 @@
     <Content Include="Views\Sprint\BurnDown.cshtml" />
     <Content Include="Views\Sprint\Story.cshtml" />
     <Content Include="Views\Task\Task.cshtml" />
+    <Content Include="Views\Sprint\AddBoard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,6 +11,14 @@
             new SelectList(Model.Items, "Value", "Text")
         )
     </p>
+    
+    <p>
+        @Html.LabelFor(x => x.OwnerId, "Owner")
+        @Html.DropDownListFor(
+            x => x.OwnerId,
+            new SelectList(Model.TeamMembers, "Value", "Text"))
+    </p>
+    
     <p>
         @Html.LabelFor(x => x.Text, "Task Text")
         @Html.TextAreaFor(x => x.Text)

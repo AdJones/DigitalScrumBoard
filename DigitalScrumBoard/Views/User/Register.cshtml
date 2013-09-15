@@ -20,6 +20,10 @@
                 @Html.PasswordFor(u => u.Password)
             </p>
             <p>
+                @Html.LabelFor(u => u.ImageURL)
+                @Html.TextBoxFor(u => u.ImageURL)
+            </p>
+            <p>
                 @Html.LabelFor(u => u.teams, "Select your team")
                 @Html.DropDownListFor(
                     x => x.Team,

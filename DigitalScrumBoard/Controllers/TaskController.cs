@@ -1,5 +1,6 @@
 ﻿using DigitalScrumBoard.Data;
 using DigitalScrumBoard.Models.ViewModels;
+using DigitalScrumBoard.Models.ViewModels.Partials;
 using DigitalScrumBoard.Repositories;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,13 @@ namespace DigitalScrumBoard.Controllers
         public ActionResult Index(Task task)
         {
             TaskPartialViewModel model = new TaskPartialViewModel(task);
+            UserRepository userRepo = new UserRepository();
+
+            model.Owner = userRepo.GetUser(task.OwnerID);
+            if (string.IsNullOrEmpty(model.Owner.ImageURL))
+            {
+                model.Owner.ImageURL = "/Content/images/Default.png";
+            }
 
             return PartialView(model);
         }
@@ -55,6 +63,7 @@ namespace DigitalScrumBoard.Controllers
             string updatedTaskText = Request.Form["Text"];
             string updatedTaskTime = Request.Form["TimeRemaining"];
             string updatedColumn = Request.Form["CurrColumn"];
+            string ownerId = Request.Form["OwnerId"];
             int id = int.Parse(idFromClient);
 
             int time = 0;
@@ -62,21 +71,35 @@ namespace DigitalScrumBoard.Controllers
 
             TaskRepository repository = new TaskRepository();
             repository.UpdateTaskDetails(id, updatedTaskText, time, validTimeReceived);
+            repository.UpdateTaskOwner(id, ownerId);
             repository.UpdateColumnMobileView(id, updatedColumn);
             return RedirectToAction("ScrumBoard", "Sprint");
         }
 
+        [Authorize]
         public ActionResult GetTaskDetails_Ajax()
         {
             string idFromClient = Request["id"];
             int id = 0;
             int.TryParse(idFromClient, out id);
             TaskRepository repository = new TaskRepository();
+            UserRepository userRepo = new UserRepository();
+            string loggedInUserEmail = User.Identity.Name;
 
             if (id != 0)
             {
                 Task task = repository.GetTaskById(id);
                 TaskPartialViewModel model = new TaskPartialViewModel(task);
+
+                model.TeamMembers = new List<SelectListItem>();
+                foreach (User u in userRepo.GetTeamMates(loggedInUserEmail))
+                {
+                    SelectListItem item = new SelectListItem();
+                    item.Text = u.Email;
+                    item.Value = u.Id.ToString();
+                    model.TeamMembers.Add(item);
+                }
+
                 return PartialView("TaskDetails", model);
             }
             else
@@ -91,17 +114,30 @@ namespace DigitalScrumBoard.Controllers
         {
             int sprintId = 0;
             int.TryParse(Request["sprintId"].ToString(), out sprintId);
-            SprintRepository repo = new SprintRepository();
+            SprintRepository sprintRepo = new SprintRepository();
+            UserRepository userRepo = new UserRepository();
+
             ViewBag.Sprint = sprintId;
+
+            string loggedInUserEmail = User.Identity.Name;
 
             TaskPartialViewModel model = new TaskPartialViewModel(new Task());
             model.Stories = new List<SelectListItem>();
-            foreach (Story s in repo.GetStories(sprintId))
+            foreach (Story s in sprintRepo.GetStories(sprintId))
             {
                 SelectListItem item = new SelectListItem();
                 item.Text = s.Text;
                 item.Value = s.ID.ToString();
                 model.Stories.Add(item);
+            }
+
+            model.TeamMembers = new List<SelectListItem>();
+            foreach (User u in userRepo.GetTeamMates(loggedInUserEmail))
+            {
+                SelectListItem item = new SelectListItem();
+                item.Text = u.Email;
+                item.Value = u.Id.ToString();
+                model.TeamMembers.Add(item);
             }
 
             return PartialView(model);
@@ -118,7 +154,7 @@ namespace DigitalScrumBoard.Controllers
 
             if (ModelState.IsValid)
             {
-                taskRepo.CreateTask(model.Text, model.Type, model.StoryId, 1, model.TimeRemaining);
+                taskRepo.CreateTask(model.Text, model.Type, model.StoryId, model.OwnerId, model.TimeRemaining);
             }
 
             return RedirectToAction("ScrumBoard", "Sprint", new { id = sprintId });

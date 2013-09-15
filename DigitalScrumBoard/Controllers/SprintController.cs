@@ -37,6 +37,33 @@ namespace DigitalScrumBoard.Controllers
         }
 
         [Authorize]
+        [HttpGet]
+        public ActionResult AddBoard()
+        {
+            ViewBag.Page = "board";
+
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddBoard(BoardViewModel boardModel)
+        {
+            if (ModelState.IsValid)
+            {
+                SprintRepository sprintRepo = new SprintRepository();
+                TeamRepository teamRepo = new TeamRepository();
+                Team userTeam = teamRepo.GetTeam(User.Identity.Name);
+                sprintRepo.AddBoard(boardModel.Goals, boardModel.Name, boardModel.StartDate, boardModel.EndDate, userTeam.ID);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("AddBoard", "Sprint");
+            }
+        }
+
+        [Authorize]
         public ActionResult BurnDown()
         {
             int sprintId = 0;

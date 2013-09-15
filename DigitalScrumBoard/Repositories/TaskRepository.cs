@@ -52,6 +52,13 @@ namespace DigitalScrumBoard.Repositories
             }
         }
 
+        public void UpdateTaskOwner(int taskId, string ownerId)
+        {
+            Task task = context.Tasks.Single(t => t.ID == taskId);
+            task.OwnerID = int.Parse(ownerId);
+            this.context.SubmitChanges();
+        }
+
         public void UpdateColumnMobileView(int id, string columnName)
         {
             Task task = this.context.Tasks.SingleOrDefault(t => t.ID == id);

@@ -1,0 +1,33 @@
+﻿@model DigitalScrumBoard.Models.ViewModels.BoardViewModel
+@{
+    ViewBag.Title = "Add Board";
+    Layout = "~/Views/Shared/SiteLayout.cshtml";
+}
+
+<div class="jumbotron">
+    <div class="container">
+        <h2>Add new sprint board</h2>
+        @using (Html.BeginForm())
+        {
+            <p>
+                @Html.LabelFor(x => x.Name)
+                @Html.TextBoxFor(x => x.Name)
+            </p>
+            <p>
+                @Html.LabelFor(x => x.StartDate, "Start Date")
+                @Html.TextBoxFor(x => x.StartDate)
+            </p>
+            <p>
+                @Html.LabelFor(x => x.EndDate, "End Date")
+                @Html.TextBoxFor(x => x.EndDate)
+            </p>
+            <p>
+                @Html.LabelFor(x => x.Goals, "Sprint Goals")
+                @Html.TextAreaFor(x => x.Goals)
+            </p>
+            
+            <button type="submit" id="AddBoardBtn" class="btn btn-primary btn-lg">Add Board</button>
+        }
+    </div>
+</div>
+
